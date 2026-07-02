@@ -1,0 +1,25 @@
+# Isolated test stack. Does not touch host Redis, Nginx, or system files.
+services:
+  app:
+    build: .
+    container_name: adinj-app
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 7860
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:7860}
+      JWT_SECRET: ${JWT_SECRET:?generate a 32+ char random string}
+      BOOTSTRAP_ADMIN_EMAIL: ${BOOTSTRAP_ADMIN_EMAIL:-}
+      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-}
+      RATE_LIMIT_RPM: ${RATE_LIMIT_RPM:-120}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-200}
+      LOG_LEVEL: info
+    volumes:
+      - adinj-data:/app/data
+    ports:
+      - "6780:7860"      # host:container - change host port if 6780 is busy
+    ulimits:
+      nofile: { soft: 200000, hard: 200000 }
+
+volumes:
+  adinj-data:
