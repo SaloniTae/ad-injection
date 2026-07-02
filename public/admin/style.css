@@ -1,0 +1,309 @@
+/* ============================================================================
+   Ad Injection – Admin dashboard
+   Dark glassmorphism SaaS theme. Mobile-first, scales to desktop.
+   Design system:
+     - background: layered dark with color glow accents (top-left + bottom-right)
+     - surfaces: translucent glass panels with backdrop-blur
+     - primary action: high-contrast white pill
+     - destructive action: red pill
+     - secondary/edit: outlined glass pill
+     - hover: subtle lift + brighter border
+   ============================================================================ */
+
+:root {
+  --bg-0: #05070d;
+  --bg-1: #0a0e1a;
+  --glass-bg:      rgba(255, 255, 255, 0.045);
+  --glass-bg-hi:   rgba(255, 255, 255, 0.075);
+  --glass-border:  rgba(255, 255, 255, 0.09);
+  --glass-border-hi: rgba(255, 255, 255, 0.18);
+  --text:          #f4f6fb;
+  --text-muted:    #9aa3b2;
+  --text-dim:      #6a7383;
+  --accent:        #ffffff;
+  --accent-fg:     #0a0e1a;
+  --danger:        #ff4d5e;
+  --danger-hover:  #ff657a;
+  --edit:          #ffb547;   /* warm amber for edit */
+  --ok:            #4ade80;
+  --warn:          #fbbf24;
+  --radius:        14px;
+  --radius-sm:     10px;
+  --shadow:        0 10px 40px rgba(0, 0, 0, 0.45);
+  --blur:          20px;
+}
+
+/* ---- Base ---------------------------------------------------------------- */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0; min-height: 100vh;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px; line-height: 1.5;
+  background:
+    radial-gradient(1200px 700px at -10% -20%, rgba(96, 91, 255, 0.18), transparent 60%),
+    radial-gradient(900px 700px at 110% 110%, rgba(255, 60, 130, 0.13), transparent 55%),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1));
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { color: inherit; text-decoration: none; }
+h1 { font-size: clamp(20px, 2.4vw, 28px); font-weight: 650; letter-spacing: -0.01em; margin: 0 0 6px; }
+h2 { font-size: 16px; font-weight: 600; letter-spacing: -0.005em; margin: 0 0 12px; }
+h3 { font-size: 14px; font-weight: 600; margin: 0 0 8px; }
+pre, code { font-family: ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, monospace; font-size: 12px; }
+pre {
+  background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border);
+  padding: 12px 14px; border-radius: var(--radius-sm); overflow-x: auto;
+  white-space: pre-wrap; word-break: break-all;
+}
+code { background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 5px; }
+
+/* ---- Layout containers -------------------------------------------------- */
+.wrap { max-width: 1200px; margin: 0 auto; padding: clamp(16px, 3vw, 32px); }
+.wrap.narrow { max-width: 640px; }
+
+/* ---- Top nav ------------------------------------------------------------ */
+.top {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 18px;
+  padding: 14px clamp(14px, 3vw, 28px);
+  background: rgba(10, 14, 26, 0.72);
+  backdrop-filter: saturate(140%) blur(var(--blur));
+  -webkit-backdrop-filter: saturate(140%) blur(var(--blur));
+  border-bottom: 1px solid var(--glass-border);
+  flex-wrap: wrap;
+}
+.top .brand {
+  font-weight: 700; letter-spacing: -0.02em;
+  font-size: 16px;
+  background: linear-gradient(90deg, #fff, #b7c1ff);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.top nav { display: flex; gap: 4px; margin-left: 8px; flex: 1 1 auto; flex-wrap: wrap; }
+.top nav a {
+  padding: 7px 12px; border-radius: 999px;
+  color: var(--text-muted); cursor: pointer; user-select: none;
+  font-size: 13px; font-weight: 500;
+  transition: color .15s, background .15s;
+}
+.top nav a:hover { color: var(--text); background: var(--glass-bg); }
+.top nav a.active { color: var(--text); background: var(--glass-bg-hi); box-shadow: inset 0 0 0 1px var(--glass-border); }
+.top .who { display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 12px; }
+
+/* ---- Cards -------------------------------------------------------------- */
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  box-shadow: var(--shadow);
+  transition: border-color .15s, transform .15s;
+}
+.card:hover { border-color: var(--glass-border-hi); }
+.card > *:first-child { margin-top: 0; }
+.card.muted { color: var(--text-muted); padding: 18px 20px; }
+.card > label,
+.card label { display: block; margin: 10px 0 6px; color: var(--text-muted); font-size: 12px; font-weight: 500; letter-spacing: 0.02em; text-transform: uppercase; }
+.card > label:first-child { margin-top: 0; }
+
+/* ---- Grid & rows -------------------------------------------------------- */
+.grid {
+  display: grid; gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+}
+.row {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+}
+
+/* ---- Stat tiles --------------------------------------------------------- */
+.stat {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+}
+.stat .l { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.stat .n { font-size: 28px; font-weight: 650; margin-top: 4px; letter-spacing: -0.02em; }
+
+/* ---- Inputs ------------------------------------------------------------- */
+input, select, textarea {
+  width: 100%; display: block;
+  padding: 11px 13px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 14px; font-family: inherit; line-height: 1.4;
+  transition: border-color .15s, background .15s, box-shadow .15s;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none; border-color: rgba(255,255,255,0.35);
+  background: rgba(0, 0, 0, 0.42);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.06);
+}
+input[type="file"] {
+  padding: 8px; cursor: pointer;
+}
+input[type="file"]::file-selector-button {
+  background: rgba(255,255,255,0.08); color: var(--text);
+  border: 1px solid var(--glass-border);
+  padding: 6px 12px; border-radius: 6px; cursor: pointer;
+  margin-right: 12px; font-size: 12px; font-weight: 500;
+}
+textarea { min-height: 90px; resize: vertical; font-family: ui-monospace, monospace; font-size: 12px; }
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%239aa3b2' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; background-size: 10px;
+  padding-right: 34px;
+}
+
+/* ---- Buttons ------------------------------------------------------------ */
+button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 9px 16px;
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  font-family: inherit; font-size: 13px; font-weight: 500;
+  cursor: pointer; user-select: none;
+  transition: background .15s, border-color .15s, transform .06s, color .15s, opacity .15s;
+  white-space: nowrap;
+}
+button:hover { background: rgba(255,255,255,0.11); border-color: var(--glass-border-hi); }
+button:active { transform: translateY(1px); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+button.primary {
+  background: var(--accent); color: var(--accent-fg); border-color: transparent;
+  font-weight: 600;
+}
+button.primary:hover { background: #f5f6fa; }
+
+button.danger {
+  background: transparent; color: var(--danger);
+  border-color: rgba(255, 77, 94, 0.35);
+}
+button.danger:hover { background: rgba(255, 77, 94, 0.12); border-color: var(--danger); color: var(--danger-hover); }
+
+button.edit {
+  background: transparent; color: var(--edit);
+  border-color: rgba(255, 181, 71, 0.35);
+}
+button.edit:hover { background: rgba(255, 181, 71, 0.12); border-color: var(--edit); }
+
+button.small { padding: 6px 12px; font-size: 12px; }
+button.copy  { padding: 4px 10px; font-size: 11px; margin-left: 8px; }
+button.link {
+  background: transparent; border: none; padding: 6px 0;
+  color: var(--text-muted); font-size: 12px;
+}
+button.link:hover { color: var(--text); background: transparent; }
+
+/* ---- Tabs (auth screens) ------------------------------------------------ */
+.tabs { display: flex; gap: 4px; margin-bottom: 16px; padding: 4px;
+        background: var(--glass-bg); border: 1px solid var(--glass-border);
+        border-radius: 999px; width: max-content; }
+.tabs button {
+  border: none; background: transparent; padding: 7px 18px; border-radius: 999px;
+  color: var(--text-muted); font-weight: 500;
+}
+.tabs button.active { background: rgba(255,255,255,0.14); color: var(--text); }
+
+/* ---- Messages ----------------------------------------------------------- */
+.err, .ok {
+  margin-top: 12px; padding: 10px 12px;
+  border-radius: var(--radius-sm); font-size: 13px;
+  display: none;
+}
+.err:not(:empty) { display: block; background: rgba(255,77,94,0.10); border: 1px solid rgba(255,77,94,0.30); color: #ffbec4; }
+.ok:not(:empty)  { display: block; background: rgba(74,222,128,0.10); border: 1px solid rgba(74,222,128,0.30); color: #b8f5cf; }
+
+/* ---- Badges / pills ----------------------------------------------------- */
+.badge, .pill {
+  display: inline-flex; align-items: center; padding: 3px 10px;
+  background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border);
+  border-radius: 999px; font-size: 11px; font-weight: 500;
+  color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em;
+}
+.pill.on    { color: var(--ok);   background: rgba(74,222,128,0.10); border-color: rgba(74,222,128,0.30); }
+.pill.off   { color: var(--danger); background: rgba(255,77,94,0.10); border-color: rgba(255,77,94,0.30); }
+.pill.admin { color: var(--warn); background: rgba(251,191,36,0.10); border-color: rgba(251,191,36,0.30); }
+
+/* ---- Key/value list ----------------------------------------------------- */
+.kv { display: grid; grid-template-columns: minmax(90px, auto) 1fr; gap: 8px 16px; font-size: 13px; }
+.kv b { font-weight: 500; color: var(--text-muted); }
+
+/* ---- Tables ------------------------------------------------------------- */
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-muted);
+  padding: 10px 12px; border-bottom: 1px solid var(--glass-border);
+}
+tbody td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.045); font-size: 13px; vertical-align: middle; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* ---- Modal -------------------------------------------------------------- */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(4, 6, 12, 0.66);
+  backdrop-filter: blur(4px);
+  padding: 20px;
+  animation: fadeIn .15s ease;
+}
+.modal {
+  width: 100%; max-width: 560px; max-height: 88vh; overflow: auto;
+  background: rgba(20, 24, 40, 0.88);
+  border: 1px solid var(--glass-border-hi);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(30px);
+  animation: modalIn .15s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modalIn { from { transform: translateY(10px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.preview {
+  width: 100%; max-height: 60vh; border-radius: var(--radius-sm);
+  background: #000; margin: 12px 0; object-fit: contain;
+}
+
+/* ---- Events log --------------------------------------------------------- */
+.event-row { display: grid; grid-template-columns: 90px 1fr auto; gap: 12px;
+             padding: 8px 10px; border-radius: 6px; font-size: 12px;
+             border-bottom: 1px solid rgba(255,255,255,0.03); }
+.event-row .t { color: var(--text-dim); font-family: ui-monospace, monospace; }
+.event-row .n { color: var(--text); }
+
+/* ---- Utilities ---------------------------------------------------------- */
+.hidden { display: none !important; }
+.muted { color: var(--text-muted); }
+.spacer { flex: 1; }
+
+/* ---- Responsive --------------------------------------------------------- */
+@media (max-width: 640px) {
+  .top { padding: 12px 14px; }
+  .top .brand { font-size: 15px; }
+  .top .who { order: 3; width: 100%; justify-content: flex-end; margin-top: 4px; }
+  .top nav { order: 2; width: 100%; overflow-x: auto; margin-left: 0; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .top nav a { flex: 0 0 auto; }
+  .card { padding: 16px; }
+  .grid { grid-template-columns: 1fr; }
+  .kv { grid-template-columns: 1fr; gap: 2px 0; }
+  .kv b { margin-top: 8px; }
+  .event-row { grid-template-columns: 1fr; }
+  h1 { font-size: 22px; }
+  button { padding: 10px 14px; }
+}
